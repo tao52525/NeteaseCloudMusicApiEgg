@@ -23,7 +23,7 @@ function randomUserAgent() {
     'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Win64; x64; Trident/6.0)',
     'Mozilla/5.0 (Windows NT 6.3; Win64, x64; Trident/7.0; rv:11.0) like Gecko',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/13.10586',
-    'Mozilla/5.0 (iPad; CPU OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A300 Safari/602.1'
+    'Mozilla/5.0 (iPad; CPU OS 10_0 like Mac OS X) AppleWebKit/602.1.38 (KHTML, like Gecko) Version/10.0 Mobile/14A300 Safari/602.1',
   ];
   const num = Math.floor(Math.random() * userAgentList.length);
   return userAgentList[num];
@@ -43,15 +43,15 @@ class NeteaseService extends Service {
         Referer: 'http://music.163.com',
         Host: 'music.163.com',
         Cookie: options.cookie,
-        'User-Agent': randomUserAgent()
+        'User-Agent': randomUserAgent(),
       },
       data: queryString.stringify({
         params: cryptoReq.params,
-        encSecKey: cryptoReq.encSecKey
+        encSecKey: cryptoReq.encSecKey,
       }),
       dataType: 'json',
-      enableProxy: ctx.request.body.proxy ? true : false,
-      proxy: ctx.request.body.proxy
+      enableProxy: !!ctx.request.body.proxy,
+      proxy: ctx.request.body.proxy,
     });
     return result.data;
   }
